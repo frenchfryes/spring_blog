@@ -15,25 +15,28 @@ import java.util.List;
 public class PostSvc {
     private final PostRepository postdao;
 
-    List<Post> posts = new ArrayList<>();
-
+//Autowire an instance
+    //1. Add a private property of type X
+    //2. Create/update the constructor of the class Y where you
+    // added the property
+    //3. add the @autowire annotation to the constructor if needed
 @Autowired
     public PostSvc(PostRepository postdao){
     this.postdao = postdao;
     }
 
-    public List<Post> findAll(){
-        return posts;
+    public Iterable<Post> findAll(){
+        return postdao.findAll();
     }
 
     public Post findOne(long id){
-        return posts.get((int) id - 1);
+
+        return postdao.findOne(id);
     }
 
     public Post save(Post post){
-        post.setId(( long) posts.size() + 1);
-        posts.add(post);
-        return post;
+
+        return postdao.save(post);
     }
 
     private void createPosts(){
