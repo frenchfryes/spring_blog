@@ -1,6 +1,8 @@
 package com.codeup.svcs;
 
 import com.codeup.models.Post;
+import com.codeup.repositories.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,11 +13,13 @@ import java.util.List;
  */
 @Service("postSvc")
 public class PostSvc {
+    private final PostRepository postdao;
 
     List<Post> posts = new ArrayList<>();
 
-    public PostSvc(){
-        createPosts();
+@Autowired
+    public PostSvc(PostRepository postdao){
+    this.postdao = postdao;
     }
 
     public List<Post> findAll(){
