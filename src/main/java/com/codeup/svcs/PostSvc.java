@@ -48,6 +48,9 @@ public class PostSvc {
         save(new Post(title, body));
     }
 
+    public void deletePost(Long id){
 
+        postdao.delete(id);
+    }
 
 }

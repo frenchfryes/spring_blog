@@ -18,9 +18,8 @@ public class Post {
 
     @Column(nullable = false, columnDefinition = "Text")
     private String body;
-
-    @Column(nullable = false)
-    private long author_id;
+    @OneToOne
+    private User owner;
 
     public Post(String title, String body) {
         this.title = title;
@@ -55,12 +54,13 @@ public class Post {
         this.id = id;
     }
 
-    public long getAuthor_id() {
-        return author_id;
+
+    public User getOwner() {
+        return owner;
     }
 
-    public void setAuthor_id(long author_id) {
-        this.author_id = author_id;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }
 

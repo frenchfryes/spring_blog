@@ -27,7 +27,7 @@
     </div><!-- /.container-fluid -->
 </nav>
 <!--FORM-->
-<form th:fragment="form">
+<div th:fragment="form">
     <div class="form-group">
         <label for="title">Title</label>
         <input id="title" type="text" th:field="*{title}"/>
@@ -37,7 +37,7 @@
         <input id="body" type="text" th:field="*{body}"/>
     </div>
     <button class="btn btn-default">Save</button>
-</form>
+</div>
 <!--//form-->
 <div th:fragment="scripts">
     <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>

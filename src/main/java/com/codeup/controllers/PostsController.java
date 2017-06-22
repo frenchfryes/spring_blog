@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 
 /**
  * Created by frenchfryes on 6/19/17.
@@ -44,17 +46,32 @@ public class PostsController {
     public String create(@ModelAttribute Post post, Model model) {
         model.addAttribute("post", post);
         postSvc.save(post);
-        return "posts/create";
+        return "redirect:/posts/";
     }
+
     @GetMapping("/posts/{id}/edit")
-    public String showEditForms(@PathVariable long id, Model model){
+    public String showEditForms(@PathVariable long id, Model model) {
         model.addAttribute("post", postSvc.findOne(id));
         return "posts/edit";
 
     }
+    @PostMapping("/posts/{id}/edit")
+    public String editPost(@ModelAttribute Post post){
+        postSvc.save(post);
+        return "redirect:/posts/";
+    }
 
     @GetMapping("/posts/create")
-    public String savePost() {
+    public String savePost(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
+
+    @PostMapping("post/delete")
+    public String deletePost(@ModelAttribute Post post, Model model) {
+        postSvc.deletePost(post.getId());
+        model.addAttribute("msg", "Your post was deleted correctly");
+        return "return the view with a success message";
+    }
+
 }
