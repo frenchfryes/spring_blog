@@ -40,17 +40,21 @@ public class PostsController {
         return "posts/show";
     }
 
-
-    @GetMapping("/posts/create")
-    public String showCreateForm(Model model) {
-        model.addAttribute("post", new Post());
-        return "posts/create";
-    }
-
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post post, Model model) {
         model.addAttribute("post", post);
         postSvc.save(post);
+        return "posts/create";
+    }
+    @GetMapping("/posts/{id}/edit")
+    public String showEditForms(@PathVariable long id, Model model){
+        model.addAttribute("post", postSvc.findOne(id));
+        return "posts/edit";
+
+    }
+
+    @GetMapping("/posts/create")
+    public String savePost() {
         return "posts/create";
     }
 }
