@@ -1,6 +1,8 @@
 package com.codeup.controllers;
 
 import com.codeup.models.Post;
+import com.codeup.models.User;
+import com.codeup.repositories.UserRepository;
 import com.codeup.svcs.PostSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,12 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 public class PostsController {
 
     private final PostSvc postSvc;
+    private final UserRepository userRepository;
 
     @Autowired
-    public PostsController(PostSvc postSvc) {
+    public PostsController(PostSvc postSvc, UserRepository userRepository) {
         this.postSvc = postSvc;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/posts")
@@ -45,6 +49,7 @@ public class PostsController {
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post post, Model model) {
         model.addAttribute("post", post);
+        post.setOwner(userRepository.findOne(1L));
         postSvc.save(post);
         return "redirect:/posts/";
     }
@@ -58,7 +63,7 @@ public class PostsController {
     @PostMapping("/posts/{id}/edit")
     public String editPost(@ModelAttribute Post post){
         postSvc.save(post);
-        return "redirect:/posts/";
+        return "redirect:/posts";
     }
 
     @GetMapping("/posts/create")
@@ -68,10 +73,9 @@ public class PostsController {
     }
 
     @PostMapping("post/delete")
-    public String deletePost(@ModelAttribute Post post, Model model) {
+    public String deletePost(@ModelAttribute Post post) {
         postSvc.deletePost(post.getId());
-        model.addAttribute("msg", "Your post was deleted correctly");
-        return "return the view with a success message";
+        return "redirect:/posts";
     }
 
 }

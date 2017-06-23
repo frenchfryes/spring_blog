@@ -24,6 +24,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @OneToMany
+    
+
 
     public long getId() {
         return id;

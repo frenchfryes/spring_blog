@@ -14,6 +14,10 @@
             th:include="fragments :: form"
     >
     </form>
+    <form method="post" action="/post/delete">
+        <input type="hidden" name="id" th:value="${post.id}"/>
+        <button class="btn btn-danger">Delete</button>
+    </form>
 </div>
 </body>
 </html>

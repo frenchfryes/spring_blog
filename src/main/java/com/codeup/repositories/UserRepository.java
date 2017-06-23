@@ -1,13 +1,10 @@
 package com.codeup.repositories;
 
-import com.codeup.models.Post;
+import com.codeup.models.User;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 /**
  * Created by frenchfryes on 6/22/17.
  */
-public interface PostRepository extends CrudRepository<Post, Long>{
-
+public interface UserRepository extends CrudRepository<User, Long>{
 }
