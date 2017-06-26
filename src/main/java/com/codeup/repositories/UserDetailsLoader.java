@@ -15,11 +15,11 @@ import java.util.List;
  */
 @Service("customUserDetailService")
 public class UserDetailsLoader implements UserDetailsService {
-    private final UserRepository users;
+    private final UsersRepository users;
     private final Roles roles;
 
     @Autowired
-    public UserDetailsLoader(UserRepository users, Roles roles) {
+    public UserDetailsLoader(UsersRepository users, Roles roles) {
         this.users = users;
         this.roles = roles;
     }

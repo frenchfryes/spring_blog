@@ -2,7 +2,7 @@ package com.codeup.controllers;
 
 import com.codeup.models.Post;
 import com.codeup.models.User;
-import com.codeup.repositories.UserRepository;
+import com.codeup.repositories.UsersRepository;
 import com.codeup.svcs.PostSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +21,10 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 public class PostsController {
 
     private final PostSvc postSvc;
-    private final UserRepository userRepository;
+    private final UsersRepository userRepository;
 
     @Autowired
-    public PostsController(PostSvc postSvc, UserRepository userRepository) {
+    public PostsController(PostSvc postSvc, UsersRepository userRepository) {
         this.postSvc = postSvc;
         this.userRepository = userRepository;
     }
