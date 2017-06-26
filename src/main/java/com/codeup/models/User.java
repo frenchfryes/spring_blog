@@ -7,10 +7,10 @@ import javax.persistence.*;
  * Created by frenchfryes on 6/22/17.
  */
 
-
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private long id;
@@ -24,9 +24,23 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany
-    
+    public User(){
 
+    }
+
+    public User(long id, String username, String email, String password) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(User user) {
+        this.id = user.id;
+        this.username = user.username;
+        this.password = user.password;
+        this.email = user.email;
+    }
 
     public long getId() {
         return id;
