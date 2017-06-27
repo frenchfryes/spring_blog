@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="navbar :: head">
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
 <nav th:replace="navbar :: my-navbar"></nav>
+<div sec:authorize="isAuthenticated()">
 <div class="container">
     <form
             th:action="${'/posts/' + post.id + '/edit'}"
@@ -18,6 +20,7 @@
         <input type="hidden" name="id" th:value="${post.id}"/>
         <button class="btn btn-danger">Delete</button>
     </form>
+</div>
 </div>
 </body>
 </html>
