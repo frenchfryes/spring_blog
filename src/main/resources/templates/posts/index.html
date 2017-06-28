@@ -8,6 +8,13 @@
     <h1>Derek W. Frye: A Balanced View on the World of Politics and Tech</h1>
     <h2>Listing of all the posts</h2>
     <div th:each="post : ${posts}">
+        <div th:each="image : ${post.images}">
+            <img th:src="${image.path}" width="100px" height="100px" />
+        </div>
+
+        <div th:if="${post.imageUrl}">
+            <img th:src="${'/uploads/' + post.imageUrl}" alt="" width="100" height="300" />
+        </div>
         <h2><!--Title:--> <span th:text="${post.title}"></span></h2>
         <h2><!--Body: --><span th:text="${post.body}"></span></h2>
         <h2><!--user's email:--> <span th:text="${post.owner.email}"></span></h2>

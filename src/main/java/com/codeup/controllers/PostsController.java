@@ -11,9 +11,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.awt.print.Pageable;
 import java.io.File;
 import java.io.IOException;
@@ -62,16 +64,45 @@ public class PostsController {
     }
 
     @PostMapping("/posts/create")
-    public String savePost(
-            @RequestParam(name = "title") String title,
-            @RequestParam(name = "body") String body,
-            Model model
+    public String saveAd(
+            @Valid Post post,
+            Errors validation,
+            @RequestParam(name = "file") MultipartFile uploadedFile,
+            Model model  // Model model = new Model();
     ) {
+        // if (!passwordConfirm.equals(password)) { /* reject value */ }
+        if (post.getTitle().endsWith("?")) {
+            validation.rejectValue(
+                    "title",
+                    "post.title",
+                    "You can't be unsure about your title!"
+            );
+        }
+
+        if (validation.hasErrors()) {
+            model.addAttribute("errors", validation);
+            model.addAttribute("post", post);
+            return "posts/create";
+        }
+
+        String filename = uploadedFile.getOriginalFilename();
+        String filepath = Paths.get(uploadPath, filename).toString();
+        File destinationFile = new File(filepath);
+
+        try {
+            uploadedFile.transferTo(destinationFile);
+//            model.addAttribute("message", "File successfully uploaded!");
+        } catch (IOException e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Oops! Something went wrong! " + e);
+        }
+
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Post post = new Post(title, body, user);
+        post.setOwner(user);
+        post.setImageUrl(filename);
         postSvc.save(post);
         model.addAttribute("post", post);
-        return "posts/create";
+        return "redirect:/posts";
     }
 
     @Value("${file-upload-path}")
@@ -82,24 +113,6 @@ public class PostsController {
         return "fileupload";
     }
 
-    @PostMapping("/fileupload")
-    public String saveFile(
-            @RequestParam(name = "file") MultipartFile uploadedFile,
-            Model model
-    ) {
-        String filename = uploadedFile.getOriginalFilename();
-        String filepath = Paths.get(uploadPath, filename).toString();
-        File destinationFile = new File(filepath);
-        try {
-            uploadedFile.transferTo(destinationFile);
-            model.addAttribute("message", "File successfully uploaded!");
-        } catch (IOException e) {
-            e.printStackTrace();
-            model.addAttribute("message", "Oops! Something went wrong! " + e);
-        }
-
-        return "fileupload";
-    }
 
     @GetMapping("/posts/{id}/edit")
     public String showEditForms(@PathVariable long id, Model model) {

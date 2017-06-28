@@ -1,8 +1,10 @@
 package com.codeup.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  * Created by frenchfryes on 6/20/17.
@@ -15,24 +17,29 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
+    @NotBlank(message = "The title of your ad cannot be empty")
+    @Size(min = 5, message = "Titles must be at least 3 characters long")
     private String title;
 
     @Column(nullable = false, columnDefinition = "Text")
+    @NotBlank(message = "Please provide a description for your ad")
     private String body;
-    @OneToOne
-    private User owner;
+
+    @Column(nullable = true)
+    private String imageUrl;
 
     @ManyToOne
     @JsonManagedReference
-    private User user;
+    private User owner;
 
 
 
-    public Post(String title, String body, User user) {
+    public Post(String title, String body, User user, String imageUrl) {
         this.title = title;
         this.body = body;
         this.owner = user;
+        this.imageUrl = imageUrl;
     }
 
     public Post() {
@@ -73,11 +80,20 @@ public class Post {
     }
 
     public User getUser() {
-        return user;
+        return owner;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.owner = user;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
 }
 
