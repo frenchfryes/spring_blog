@@ -29,7 +29,7 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "owner")
     @JsonBackReference
     private List<Post> posts;
 

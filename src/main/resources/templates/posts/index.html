@@ -8,9 +8,6 @@
     <h1>Derek W. Frye: A Balanced View on the World of Politics and Tech</h1>
     <h2>Listing of all the posts</h2>
     <div th:each="post : ${posts}">
-        <div th:each="image : ${post.images}">
-            <img th:src="${image.path}" width="100px" height="100px" />
-        </div>
 
         <div th:if="${post.imageUrl}">
             <img th:src="${'/uploads/' + post.imageUrl}" alt="" width="100" height="300" />
