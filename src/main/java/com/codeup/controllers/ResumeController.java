@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class ResumeController {
-    @GetMapping("/pdf/web/viewer.html?file=ResumeoftheYear.pdf")
+    @GetMapping("/resume")
     public String resume(){
-        return "/pdf/web/viewer";
+        return "redirect:/pdf/web/viewer.html?file=ResumeoftheYear.pdf";
     }
 
 }
