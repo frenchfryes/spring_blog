@@ -5,7 +5,7 @@
     <title>Log In</title>
 </head>
 <body>
-<nav th:fragment="my-navbar" class="navbar navbar-inverse navbar-static-top">
+<nav th:replace="fragments :: my-navbar" />
 <h1>Log In</h1>
 <div th:if="${param.error}">
     Invalid Username and Password.
