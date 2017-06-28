@@ -144,5 +144,10 @@ public class PostsController {
     public String viewAllAdsUsingAnAjaxCall() {
         return "posts/ajax";
     }
+
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/posts";
+    }
 }
 
