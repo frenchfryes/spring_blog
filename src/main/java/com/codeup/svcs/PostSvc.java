@@ -39,15 +39,6 @@ public class PostSvc {
         return postdao.save(post);
     }
 
-    private void createPosts(){
-        save(new Post("ps4", "shiny and new"));
-        save(new Post("xbox juan", "not so shiny and new"));
-    }
-
-    public void createPost(String title, String body){
-        save(new Post(title, body));
-    }
-
     public void deletePost(Long id){
 
         postdao.delete(id);

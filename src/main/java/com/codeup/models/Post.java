@@ -1,5 +1,7 @@
 package com.codeup.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 /**
@@ -21,9 +23,16 @@ public class Post {
     @OneToOne
     private User owner;
 
-    public Post(String title, String body) {
+    @ManyToOne
+    @JsonManagedReference
+    private User user;
+
+
+
+    public Post(String title, String body, User user) {
         this.title = title;
         this.body = body;
+        this.owner = user;
     }
 
     public Post() {
@@ -61,6 +70,14 @@ public class Post {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
 
