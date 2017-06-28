@@ -6,15 +6,14 @@
 
 <div class="container">
     <h1>Derek W. Frye: A Balanced View on the World of Politics and Tech</h1>
-    <h2>Listing of all the posts</h2>
     <div th:each="post : ${posts}">
 
         <div th:if="${post.imageUrl}">
             <img th:src="${'/uploads/' + post.imageUrl}" alt="" width="300" height="300" />
         </div>
         <h2><!--Title:--> <span th:text="${post.title}"></span></h2>
-        <h2><!--Body: --><span th:text="${post.body}"></span></h2>
-        <h2><!--user's email:--> <span th:text="${post.owner.email}"></span></h2>
+        <h3><!--Body: --><span th:text="${post.body}"></span></h3>
+        <h4><!--user's email:--> <span th:text="${post.owner.email}"></span></h4>
     </div>
 </div>
 
